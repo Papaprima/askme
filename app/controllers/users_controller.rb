@@ -3,9 +3,9 @@ class UsersController < ApplicationController
   ANSWER_VERSION = %w[ответ ответа ответов]
   UNANSWERED_VERSION = %w[безответный безответных безответных]
 
-  before_action :load_user, except: [:index, :create, :new]
+  before_action :load_user, except: %i[index create new]
 
-  before_action :authorize_user, except: [:index, :new, :create, :show]
+  before_action :authorize_user, except: %i[index new create show]
 
   def index
     @users = User.all
@@ -52,6 +52,12 @@ class UsersController < ApplicationController
     @questions_count_text = fetch_right_version_text(questions_count, QUESTION_VERSION)
     @answers_count_text = fetch_right_version_text(answers_count, ANSWER_VERSION)
     @unanswered_count_text = fetch_right_version_text(unanswered_count, UNANSWERED_VERSION)
+  end
+
+  def destroy
+    session[:user_id] = nil
+    @user.destroy
+    redirect_to root_url, notice: 'Пользователь успешно удален!'
   end
 
   private
