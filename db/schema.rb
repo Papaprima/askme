@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_152928) do
+ActiveRecord::Schema.define(version: 2021_12_13_174852) do
 
   create_table "questions", force: :cascade do |t|
     t.string "text"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_12_11_152928) do
     t.string "avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "avatar_color_background"
   end
 
 end

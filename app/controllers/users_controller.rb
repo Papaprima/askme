@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation,
-                                 :name, :username, :avatar_url)
+                                 :name, :username, :avatar_url, :avatar_color_background)
   end
 
   def fetch_right_version_text(item_count, word_array)
