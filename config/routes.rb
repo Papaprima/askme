@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  get :show, to: 'users#show'
+  root 'users#index'
+  resources :users
+  resources :questions
 end
