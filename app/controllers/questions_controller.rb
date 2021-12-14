@@ -43,9 +43,12 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    if current_user.present? &&
-       params[:question][:user_id].to_i == current_user.id
-      params.require(:question).permit(:user_id, :text, :answer)
+    return params.require(:question).permit(:user_id, :text) if current_user.blank?
+
+    return params.require(:question).permit(:user_id, :text, :answer) if params[:question][:user_id].to_i == current_user.id
+
+    if params[:author_id].present?
+      params.require(:question).permit(:user_id, :text).merge({author_id: params[:author_id].to_i})
     else
       params.require(:question).permit(:user_id, :text)
     end

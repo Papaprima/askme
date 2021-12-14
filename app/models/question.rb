@@ -14,6 +14,7 @@
 
 class Question < ActiveRecord::Base
   belongs_to :user
+  belongs_to :author, class_name: "User", foreign_key: "author_id", optional: true
   validates :user, :text, presence: true
   validates :text, length: { maximum: 255 }
 end

@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   has_many :questions
+  has_many :my_questions, class_name: 'Question', foreign_key: :author_id
 
   validates :email, :username, :email, presence: true
   validates :email, :username, uniqueness: true

@@ -45,6 +45,10 @@
     <%= form_for @new_question do |f| %>
       <%= f.hidden_field :user_id %>
 
+      <% if current_user %>
+        <%= hidden_field_tag 'author_id', current_user.id %>
+      <% end %>
+
       <div class="form-field">
         <%= f.label "Ваш вопрос для @#{@user.username}", class: 'form-label' %>
         <%= f.text_area :text, class: 'form-textarea' %>
