@@ -15,6 +15,9 @@
 class Question < ActiveRecord::Base
   belongs_to :user
   belongs_to :author, class_name: "User", foreign_key: "author_id", optional: true
+  has_many :question_hashtags, dependent: :delete_all
+  has_many :hashtags, through: :question_hashtags
+
   validates :user, :text, presence: true
   validates :text, length: { maximum: 255 }
 end

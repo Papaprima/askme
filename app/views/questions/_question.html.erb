@@ -19,6 +19,10 @@
     <div class="question-date">
       <%= l(question.created_at, format: :short) %>
     </div>
+
+    <div class="question-date">
+      <%= render partial: 'hashtags/hashtag', collection: question.hashtags %>
+    </div>
   </div>
 
   <% if question.user == current_user %>

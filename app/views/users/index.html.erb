@@ -10,3 +10,18 @@
       </div>
   <% end %>
 </div>
+
+<div class="content-wrapper buffer-both text-center">
+  <div class="buffer-both">
+    <h1 class="title-medium">Все хеш-теги</h1>
+  </div>
+  <% if @hashtags.present? %>
+    <div class="users-list-item">
+      <%= render partial: 'hashtags/hashtag', collection: @hashtags %>
+    </div>
+  <% else %>
+    <div class="users-list-item">
+      Хеш-теги отсутствуют
+    </div>
+  <% end %>
+</div>

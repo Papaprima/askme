@@ -10,6 +10,8 @@ class QuestionsController < ApplicationController
     @question = Question.new(question_params)
 
     if @question.save
+      find_and_save_hashtags(@question.text)
+
       redirect_to user_path(@question.user), notice: 'Вопрос задан'
     else
       render :edit
@@ -52,5 +54,25 @@ class QuestionsController < ApplicationController
     else
       params.require(:question).permit(:user_id, :text)
     end
+  end
+
+  def find_and_save_hashtags(question, answer = nil)
+    question_hashtags = find_hashtags(question)
+
+    if question_hashtags.present?
+      question_hashtags.each do |h|
+        hashtag = Hashtag.find_or_create_by(text: h.downcase)
+        QuestionHashtag.create(question: @question, hashtag: hashtag)
+      end
+    end
+
+    answer_hashtags = find_hashtags(answer) if answer.present?
+    answer_hashtags.each { |h| Hashtag.find_or_create_by(text: h.downcase) } if answer_hashtags.present?
+  end
+
+  def find_hashtags(text)
+    return unless text =~ /#[[:alpha:]\d_-]+/i
+
+    text.scan(/#[[:alpha:]\d_-]+/i).flatten
   end
 end
